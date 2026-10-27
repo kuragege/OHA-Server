@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenHisAssistant 管理中心</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei",Arial,sans-serif;background:#f3f6f8;color:#21313c}.wrap{max-width:1500px;margin:24px auto;padding:0 16px}.card{background:#fff;border:1px solid #dce6ec;border-radius:10px;box-shadow:0 3px 14px rgba(20,55,75,.06);margin-bottom:16px}.head{padding:18px 20px;border-bottom:1px solid #e6eef2;display:flex;align-items:center;justify-content:space-between;gap:12px}.head h1,.head h2{margin:0;font-size:20px}.body{padding:18px 20px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}input,select,button,textarea{font:inherit;border-radius:6px;border:1px solid #cbd9e1;background:#fff}input,select,button{height:36px;padding:0 10px}textarea{padding:9px 10px;resize:vertical;line-height:1.55}input{min-width:170px}button{cursor:pointer}button.primary{background:#1b9bd1;color:#fff;border-color:#1b9bd1}button.danger{color:#c73a32;border-color:#e9b7b3}button.warn{color:#9b6500;border-color:#e8c77d;background:#fffaf0}button:disabled{opacity:.5;cursor:not-allowed}.status{font-size:13px;color:#55717f}.ok{color:#18864b}.bad{color:#c23b32}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #e8eef1;font-size:14px;vertical-align:top}th{background:#f8fafb}.pill{display:inline-block;padding:2px 8px;border-radius:99px;background:#e9f6fb;color:#167aa6;font-size:12px}.pill.off{background:#f1f1f1;color:#777}.muted{color:#708691;font-size:13px}.grow{flex:1}.actions{display:flex;gap:6px;flex-wrap:wrap}.module-box{display:flex;gap:7px;flex-wrap:wrap;min-width:260px}.module-toggle{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border:1px solid #d7e3e9;border-radius:7px;background:#f9fbfc;white-space:nowrap;font-size:12px}.module-toggle input{min-width:0;width:16px;height:16px;margin:0}.module-toggle.off{opacity:.58}.module-toggle .ver{color:#7a8d97}.hint{padding:9px 12px;border-radius:6px;background:#eef8fc;color:#3f697c;font-size:13px;margin-bottom:12px;line-height:1.7}.tabs{display:flex;gap:8px;align-items:center}.tab{height:34px;padding:0 14px}.tab.active{background:#1b9bd1;color:#fff;border-color:#1b9bd1}.settings-grid{display:grid;grid-template-columns:minmax(220px,1fr) minmax(220px,1fr);gap:14px}.setting{border:1px solid #e0e9ee;border-radius:8px;padding:14px;background:#fbfdfe}.setting h3{margin:0 0 8px;font-size:15px}.setting .desc{font-size:12px;color:#718590;margin:6px 0 10px;line-height:1.6}.setting select{min-width:190px}.switch-line{display:flex;align-items:center;gap:8px}.switch-line input{min-width:0;width:17px;height:17px}.section{display:none}.section.active{display:block}.code{font-family:Consolas,"Courier New",monospace;font-size:12px}.hash{max-width:230px;word-break:break-all;color:#607985;font-size:11px}.module-meta{min-width:210px}.module-meta b{display:block;margin-bottom:3px}.module-meta .small{font-size:12px;color:#718590;line-height:1.55}.module-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}.backup-box{margin-top:22px;border-top:1px solid #e6eef2;padding-top:16px}.backup-box h3{margin:0 0 10px;font-size:16px}.modal-mask{position:fixed;inset:0;background:rgba(20,35,45,.46);z-index:2147483000;display:none;align-items:center;justify-content:center;padding:20px}.modal-mask.show{display:flex}.modal{width:min(1080px,96vw);max-height:94vh;background:#fff;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden}.modal-head{padding:14px 16px;border-bottom:1px solid #e2eaee;display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0;font-size:17px}.modal-body{padding:16px;overflow:auto}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:600}.field .sub{font-size:11px;color:#7b8e98}.field input,.field select{width:100%;min-width:0}.field textarea{width:100%;min-height:75px}.field textarea.source{min-height:360px;font-family:Consolas,"Courier New",monospace;font-size:12px;white-space:pre;overflow:auto}.checks{display:flex;gap:18px;flex-wrap:wrap;padding-top:5px}.checks label{font-weight:400;display:flex;align-items:center;gap:6px}.checks input{width:16px;height:16px;min-width:0}.modal-foot{padding:12px 16px;border-top:1px solid #e2eaee;display:flex;align-items:center;gap:8px;justify-content:flex-end}.danger-note{background:#fff4f2;color:#9c3d34;border:1px solid #f0c6c1;padding:8px 10px;border-radius:6px;font-size:12px;line-height:1.6}.nowrap{white-space:nowrap}@media(max-width:900px){table{display:block;overflow:auto;white-space:nowrap}.wrap{margin:10px auto}.head,.body{padding:14px}.row input{flex:1;min-width:120px}.module-box{min-width:330px}.settings-grid,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.tabs{overflow:auto}.modal-mask{padding:6px}.modal{width:99vw;max-height:98vh}}
+.storage-clear-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:198px}.storage-clear-choice{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;cursor:pointer}.storage-clear-choice input{min-width:0;width:16px;height:16px;margin:0;padding:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="loginCard">
+    <div class="head"><h1>OpenHisAssistant 管理中心</h1><span class="status" id="serverState">未登录</span></div>
+    <div class="body">
+      <div class="row">
+        <input id="loginUser" placeholder="管理员用户名" value="admin" autocomplete="username">
+        <input id="loginPassword" placeholder="管理员密码" type="password" autocomplete="current-password">
+        <button class="primary" onclick="login()">登录</button>
+      </div>
+      <div class="muted" style="margin-top:10px">仅 admin 角色可以管理账号、脚本模块和客户端界面设置。模块管理支持服务器端新增、编辑、删除、手动备份和恢复；编辑、删除、恢复前还会自动留存备份。</div>
+    </div>
+  </div>
+
+  <div class="card" id="manageCard" style="display:none">
+    <div class="head">
+      <div><h2>OpenHisAssistant 管理中心</h2><div class="status" id="loginState" style="margin-top:5px"></div></div>
+      <div class="row">
+        <div class="tabs">
+          <button class="tab active" id="tabUsers" onclick="showSection('users')">用户管理</button>
+          <button class="tab" id="tabStorage" onclick="showSection('storage')">空间管理</button>
+          <button class="tab" id="tabModules" onclick="showSection('modules')">模块管理</button>
+          <button class="tab" id="tabSettings" onclick="showSection('settings')">客户端设置</button>
+          <button class="tab" id="tabAi" onclick="showSection('ai')">AI模型</button>
+        </div>
+        <button onclick="loadAll()">刷新</button>
+        <button onclick="logoutLocal()">退出管理</button>
+      </div>
+    </div>
+
+    <div class="body section active" id="sectionUsers">
+      <div class="row" style="margin-bottom:14px">
+        <input id="newUser" placeholder="新用户名">
+        <input id="newPassword" placeholder="初始密码（至少6位）" type="password">
+        <select id="newRole"><option value="doctor">doctor</option><option value="nurse">nurse</option><option value="admin">admin</option></select>
+        <button class="primary" onclick="createUser()">新增用户</button>
+      </div>
+      <div class="hint">“用户脚本”控制服务器是否向该账号下发对应模块；“客户端功能”控制“设置按钮”和“VPN/远程接入”权限。远程接入总开关只决定登录前是否显示按钮，真正建立 SSTP/HTTP 代理仍需当前账号获得单独授权。悬浮框管理器也是实际脚本模块，其余当前业务脚本依赖管理器；修改权限后该用户需重新验证。</div>
+      <div id="message" class="status" style="margin-bottom:10px"></div>
+      <table><thead><tr><th>ID</th><th>用户名</th><th>角色</th><th>状态</th><th>活跃会话</th><th>用户脚本</th><th>客户端功能</th><th>操作</th></tr></thead><tbody id="userRows"></tbody></table>
+    </div>
+
+    <div class="body section" id="sectionStorage">
+      <div class="hint">按账号查看掌上 OHA 数据。数据库文件大小包含全局设置、索引及未回收的空闲页；各账号数据仅统计文本负载估算值。附件大小按服务端磁盘文件统计。各账号操作列可勾选“数据”（快照、档案、备注、便签、AI 缓存、个人设置）和“附件”（附件记录与文件），默认两项都选；清除时只处理选中项，并撤销该账号的登录会话。仅清除数据会保留附件，但移动端可能需要重新同步对应患者或便签才能访问；仅清除附件会使正文中的附件链接失效。账号、密码、角色和权限保留。请先备份；删除账号后遗留的附件可在下方单独清理。</div>
+      <div class="module-toolbar"><button onclick="loadStorageUsage()">刷新空间用量</button><span class="status" id="storageMessage"></span></div>
+      <div class="settings-grid" style="margin-bottom:18px">
+        <div class="setting"><h3>数据库文件</h3><div id="storageDatabaseBytes">—</div><div class="muted">包含所有账号和全局数据；删除数据库记录后文件未必立即变小。</div></div>
+        <div class="setting"><h3>账号数据（文本估算）</h3><div id="storagePayloadBytes">—</div><div class="muted">快照、档案、备注、便签、AI 缓存和个人设置，不等于数据库实际文件大小。</div></div>
+        <div class="setting"><h3>现有账号的附件文件</h3><div id="storageActiveAttachments">—</div><div class="muted">按磁盘文件计算，也包含尚未建立数据库记录的文件。</div></div>
+        <div class="setting"><h3>已删除账号的残留附件</h3><div id="storageOrphanAttachments">—</div><div class="muted">按已删除的账号 ID 识别。清理前请备份需要保留的附件。</div></div>
+      </div>
+      <h3>各账号用量</h3>
+      <div class="muted" style="margin-bottom:8px">“备份便签”下载该账号的便签文字和附件 ZIP；“还原便签”仅接受同用户名备份，保留现有便签并补回缺失内容。同 ID 内容不同的便签会另存为恢复副本。</div>
+      <table><thead><tr><th>ID</th><th>用户名</th><th>状态</th><th>快照 / 档案记录</th><th>备注便签 / AI</th><th>数据估算</th><th>附件文件 / 大小</th><th>操作</th></tr></thead><tbody id="storageUserRows"><tr><td colspan="8" class="muted">点击“刷新空间用量”读取。</td></tr></tbody></table>
+      <div class="backup-box">
+        <h3>已删除账号的残留附件</h3>
+        <div class="muted" style="margin-bottom:8px">只允许清理数据库中已不存在的账号 ID 对应的附件目录。清理需要输入该 ID 再确认；不会触碰现有账号附件或数据库中的患者资料。</div>
+        <table><thead><tr><th>原账号 ID</th><th>磁盘文件数</th><th>占用</th><th>操作</th></tr></thead><tbody id="storageOrphanRows"><tr><td colspan="4" class="muted">点击“刷新空间用量”读取。</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="body section" id="sectionModules">
+      <div class="hint">模块清单以服务器 <span class="code">modules/manifest.json</span> 为准。这里进行的源码或元数据修改会自动重算 SHA-256；编辑和删除前自动备份。删除存在依赖关系的基础模块会被阻止，需先修改依赖模块。</div>
+      <div class="module-toolbar">
+        <button class="primary" onclick="openNewModule()">新增模块</button>
+        <button onclick="loadModulesAndBackups()">刷新模块/备份</button>
+        <span class="status" id="moduleMessage"></span>
+      </div>
+      <table>
+        <thead><tr><th>模块</th><th>版本/文件</th><th>状态</th><th>加载</th><th>角色/匹配</th><th>依赖</th><th>Hash</th><th>操作</th></tr></thead>
+        <tbody id="moduleRows"></tbody>
+      </table>
+      <div class="backup-box" id="moduleWebdavBox">
+        <h3>从 WebDAV 更新脚本</h3>
+        <div class="muted" style="margin-bottom:10px;line-height:1.7">
+          读取悬浮框管理器上传到 <span class="code">script-sources/智慧医疗_脚本源码备份清单.json</span> 的源码快照，并与服务器九个正式脚本模块按版本比较。
+          WebDAV 更新只替换脚本源码及 Userscript 自描述信息（名称、版本、match、grant、connect、run-at）；服务器端的启用状态、角色、用户权限、依赖、优先级和默认开关保持不变。覆盖前会自动保存本地模块备份。
+        </div>
+        <div class="row" style="margin-bottom:8px">
+          <input id="moduleWebdavEndpoint" class="grow" style="min-width:420px" placeholder="WebDAV 备份目录地址，例如 http://11.12.199.250:8000/.../OpenHISAssistant/userscript-backups">
+          <input id="moduleWebdavUsername" placeholder="WebDAV 用户名">
+          <input id="moduleWebdavPassword" type="password" placeholder="密码留空则保持已保存值">
+        </div>
+        <div class="row" style="margin-bottom:10px">
+          <label class="switch-line"><input type="checkbox" id="moduleWebdavVerifyTls" checked>HTTPS 严格验证证书</label>
+          <label class="switch-line"><input type="checkbox" id="moduleWebdavClearPassword">清除已保存密码</label>
+          <span class="muted" id="moduleWebdavPasswordState"></span>
+        </div>
+        <div class="module-toolbar">
+          <button onclick="saveModuleWebdavSettings()">保存 WebDAV 配置</button>
+          <button class="primary" onclick="checkModuleWebdavUpdates()">检查云端版本</button>
+          <button class="warn" id="moduleWebdavUpdateAll" onclick="applyAllNewerModuleWebdavUpdates()" disabled>更新全部较新版本</button>
+          <span class="status" id="moduleWebdavMessage"></span>
+        </div>
+        <table>
+          <thead><tr><th>模块</th><th>服务器版本</th><th>WebDAV版本</th><th>状态</th><th>云端源码</th><th>操作</th></tr></thead>
+          <tbody id="moduleWebdavRows"><tr><td colspan="6" class="muted">尚未检查 WebDAV 脚本源码版本。</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="backup-box">
+        <h3>模块备份</h3>
+        <div class="muted" style="margin-bottom:8px">备份文件保存在服务器 <span class="code">module_backups</span> 目录。恢复会覆盖同名模块，并在覆盖前再自动备份当前版本。</div>
+        <table><thead><tr><th>时间</th><th>模块</th><th>版本</th><th>原因</th><th>备份ID</th><th>操作</th></tr></thead><tbody id="backupRows"></tbody></table>
+      </div>
+    </div>
+
+
+    <div class="body section" id="sectionAi">
+      <div class="hint">掌上OHA的AI助手、诊疗方案分析和附件识图统一按用户选择的AI提供商调用。API Key只保存在服务器，不会下发到掌上OHA。GLM与OpenAI使用OpenAI兼容的 <span class="code">/chat/completions</span> 协议；视觉模型必须支持 <span class="code">image_url</span> Base64图片输入。</div>
+      <div class="settings-grid">
+        <div class="setting" data-ai-provider="deepseek"><h3>DeepSeek</h3><label class="switch-line"><input type="checkbox" id="aiDeepseekEnabled">启用</label><div class="desc">兼容现有config.json；管理页保存值优先于旧配置。</div><input id="aiDeepseekBase" style="width:100%;margin-bottom:8px" placeholder="https://api.deepseek.com"><input id="aiDeepseekKey" type="password" style="width:100%;margin-bottom:8px" autocomplete="new-password" placeholder="API Key留空保持原值"><input id="aiDeepseekTextModel" style="width:100%;margin-bottom:8px" placeholder="文本模型"><input id="aiDeepseekVisionModel" style="width:100%;margin-bottom:8px" placeholder="视觉模型"><label class="switch-line"><input type="checkbox" id="aiDeepseekClearKey">清除已保存Key</label><div class="muted" id="aiDeepseekKeyState"></div></div>
+        <div class="setting" data-ai-provider="glm"><h3>GLM</h3><label class="switch-line"><input type="checkbox" id="aiGlmEnabled">启用</label><div class="desc">默认API Base可使用智谱OpenAI兼容接口；文本和视觉模型分别配置。</div><input id="aiGlmBase" style="width:100%;margin-bottom:8px" placeholder="https://open.bigmodel.cn/api/paas/v4"><input id="aiGlmKey" type="password" style="width:100%;margin-bottom:8px" autocomplete="new-password" placeholder="API Key留空保持原值"><input id="aiGlmTextModel" style="width:100%;margin-bottom:8px" placeholder="例如 glm-5.2"><input id="aiGlmVisionModel" style="width:100%;margin-bottom:8px" placeholder="例如 glm-5v-turbo"><label class="switch-line"><input type="checkbox" id="aiGlmClearKey">清除已保存Key</label><div class="muted" id="aiGlmKeyState"></div></div>
+        <div class="setting" data-ai-provider="openai"><h3>OpenAI</h3><label class="switch-line"><input type="checkbox" id="aiOpenaiEnabled">启用</label><div class="desc">可填写官方或兼容API Base。文本、视觉请求均使用本区配置；独立代理仅作用于OpenAI，不改变DeepSeek、GLM、WebDAV或院内请求。</div><input id="aiOpenaiBase" style="width:100%;margin-bottom:8px" placeholder="https://api.openai.com/v1"><input id="aiOpenaiKey" type="password" style="width:100%;margin-bottom:8px" autocomplete="new-password" placeholder="API Key留空保持原值"><input id="aiOpenaiTextModel" style="width:100%;margin-bottom:8px" placeholder="文本模型"><input id="aiOpenaiVisionModel" style="width:100%;margin-bottom:8px" placeholder="视觉模型"><label class="switch-line"><input type="checkbox" id="aiOpenaiProxyEnabled">使用OpenAI独立HTTP代理</label><input id="aiOpenaiProxyUrl" style="width:100%;margin:6px 0 8px" placeholder="http://127.0.0.1:7890"><div class="desc" style="margin-top:-2px;margin-bottom:8px">适用于Clash HTTP/Mixed端口。服务器仍保持 trust_env=false，只对此OpenAI请求显式传入代理。</div><label class="switch-line"><input type="checkbox" id="aiOpenaiClearKey">清除已保存Key</label><div class="muted" id="aiOpenaiKeyState"></div></div>
+      </div>
+      <div class="row" style="margin-top:16px"><button class="primary" onclick="saveAiProviders()">保存AI模型配置</button><span class="status" id="aiMessage"></span></div>
+    </div>
+
+    <div class="body section" id="sectionSettings">
+      <div class="hint">这些设置由服务器统一下发。FRP 公网 HTTPS 地址用于常规公网登录，同时也是 VPN 专用控制通道：VPN 用户验证、单用户权限检查、SSTP 参数读取及 SSTP 证书下载均只允许通过该公网域名完成。远程接入总开关只控制客户端登录前是否显示按钮；实际连接仍按用户授权。DeepSeek 网页版始终使用自己独立的网络配置。</div>
+      <div class="settings-grid">
+        <div class="setting"><h3>主页面服务器地址 / 端口</h3><div class="desc">隐藏只影响界面，不影响实际连接。</div><select id="serverEndpointDisplay"><option value="full">完整显示</option><option value="masked">脱敏显示</option><option value="hidden">完全隐藏</option></select></div>
+        <div class="setting"><h3>DeepSeek Internet 代理地址 / 端口</h3><div class="desc">控制 DeepSeek 网页版顶部网络信息，代理实际连接不受影响。</div><select id="deepSeekProxyDisplay"><option value="full">完整显示</option><option value="masked">脱敏显示</option><option value="hidden">完全隐藏</option></select></div>
+        <div class="setting"><h3>掌上 OHA 图片上传压缩档位</h3><div class="desc">管理员统一控制所有掌上OHA账号的静态图片上传策略。轻压缩保持当前最长边2560px；强压缩最长边1920px并使用更积极的JPEG压缩；原图不做缩放或转JPEG，但仍受服务器单文件25MB上限。GIF、PDF、TXT不受此设置影响。</div><select id="mobileImageCompressionMode"><option value="strong">强压缩（1920px）</option><option value="light">轻压缩（2560px，当前默认）</option><option value="original">原图（不压缩）</option></select></div>
+        <div class="setting"><h3>网络状态提示</h3><div class="desc">关闭后，地址隐藏时也不再显示“服务器已配置 / Internet 通道已启用”等文字。</div><label class="switch-line"><input type="checkbox" id="networkStatusVisible">显示网络状态提示</label></div>
+        <div class="setting"><h3>FRP 公网登录 / VPN 验证</h3><div class="desc">该地址既可用于普通 OHA 公网登录，也作为 VPN 专用控制通道。VPN 弹窗用户验证、单用户权限检查、SSTP 参数读取和 SSTP 公钥证书下载均只通过此 FRP 公网 HTTPS 地址完成，不再回退内网 OHA Server。首次院外冷启动仍需在 client-config.json 预置该地址，或本机此前已缓存过该公网地址。</div><label class="switch-line"><input type="checkbox" id="publicAuthEnabled">允许公网域名登录验证及 VPN 预登录支持</label><input id="publicAuthUrl" style="width:100%;margin-top:10px" placeholder="https://oha.example.com"></div>
+        <div class="setting"><h3>FRP HTTPS 证书验证</h3><div class="desc"><b>默认应保持严格验证。</b>仅当 FRP 公网地址使用自签名、名称不匹配或暂未受系统信任的 HTTPS 证书时，为兼容测试可开启。开启后只放宽 OHA 客户端访问 FRP 公网控制面的证书验证；不会关闭 Windows SSTP/Schannel 的服务器证书校验，也不会影响 HIS 或 DeepSeek 网页版。该模式会降低公网身份验证的抗中间人攻击能力。</div><label class="switch-line"><input type="checkbox" id="publicAuthAllowInvalidTls">允许 FRP 公网验证接受无效/不受信任 HTTPS 证书（测试）</label></div>
+        <div class="setting"><h3>DeepSeek 网页版外部跳转</h3><div class="desc">只限制 DeepSeek 网页版的顶级页面跳转与新窗口，不拦截页面正常加载的 CDN、脚本、字体等子资源。医院部署建议保持开启并选择“阻止外部网站”。</div><label class="switch-line"><input type="checkbox" id="deepSeekNavigationRestricted">限制离开允许域名</label><div style="margin-top:10px"><select id="deepSeekExternalNavigationAction"><option value="block">阻止外部网站</option><option value="system">使用系统默认浏览器打开</option><option value="allow">不限制</option></select></div></div>
+        <div class="setting"><h3>DeepSeek 允许域名</h3><div class="desc">每行一个根域名；填写 <span class="code">deepseek.com</span> 会同时允许 <span class="code">chat.deepseek.com</span> 等子域。当前 DeepSeek 首页自身的域名始终自动允许。</div><textarea id="deepSeekAllowedHosts" rows="5" style="width:100%" placeholder="deepseek.com"></textarea></div>
+        <div class="setting"><h3>主页面管理</h3><div class="desc">Windows 客户端登录后打开的 HIS 页面，以及 DeepSeek 独立窗口的首页。留空时沿用客户端安装包的地址；修改后需重新登录。</div><label>OHA Windows 主页面</label><input id="hisHomeUrl" style="width:100%;margin:6px 0 10px" placeholder="http://11.12.199.244:8003/"><label>DeepSeek 网页版主页面</label><input id="deepSeekHomeUrl" style="width:100%;margin-top:6px" placeholder="https://chat.deepseek.com/"></div>
+        <div class="setting"><h3>扩展网页管理</h3><div class="desc">每条书签填写名称和完整网址。客户端“扩展”会在与主 HIS 相同的 WebView2 环境中新开窗口；仅允许在所配置书签域名内浏览，服务端模块仍按各自匹配规则注入。勾选时窗口顶部显示完整网址（包含 http:// 或 https://、端口、路径及参数）；取消勾选时隐藏地址。</div><label class="switch-line" style="margin-bottom:12px"><input type="checkbox" id="extensionWindowShowDomain">在扩展网页窗口中显示域名</label><div id="extensionBookmarkRows"></div><button type="button" onclick="addBookmarkRow('extension')">添加扩展网页</button></div>
+        <div class="setting"><h3>DeepSeek 网页版书签管理</h3><div class="desc">书签在 DeepSeek 独立窗口打开。请另外把对应域名加入上方“DeepSeek 允许域名”，否则仍会被跳转限制阻止。</div><div id="deepSeekBookmarkRows"></div><button type="button" onclick="addBookmarkRow('deepSeek')">添加 DeepSeek 书签</button></div>
+        <div class="setting"><h3>远程接入按钮总开关</h3><div class="desc">关闭：客户端登录前不显示 VPN/代理按钮。开启：客户端在未登录阶段即可显示按钮；点击后通过弹窗输入 OHA 用户名和密码，并仅通过“允许公网域名登录验证”配置的 FRP HTTPS 地址验证，再检查该用户是否拥有“VPN/远程接入”权限。</div><label class="switch-line"><input type="checkbox" id="vpnGlobalEnabled">登录前显示并启用远程接入入口</label></div>
+        <div class="setting"><h3>远程接入模式</h3><div class="desc">SSTP 使用 Windows 原生 RAS；HTTP代理只作用于主 HIS WebView2，不创建额外虚拟网卡，也不会影响 DeepSeek 网页版。</div><select id="vpnAccessMode"><option value="sstp">Windows 原生 SSTP VPN</option><option value="http-proxy">HIS WebView2 HTTP 代理</option></select></div>
+        <div class="setting" data-sstp-setting><h3>SSTP 连接名称</h3><div class="desc">写入 Windows RAS 电话簿的连接名称。客户端不会显示该配置值。</div><input id="vpnEntryName" style="width:100%" placeholder="OpenHisAssistant Hospital VPN"></div>
+        <div class="setting" data-sstp-setting><h3>SSTP 服务器</h3><div class="desc">只填写 VPN 服务器的域名或 IP，不要填写 https:// 或路径。SSTP 使用服务器证书，Windows 必须能够正常信任该证书。</div><input id="vpnServerAddress" style="width:100%" placeholder="vpn.example.com"></div>
+        <div class="setting" data-sstp-setting><h3>SSTP 信任证书</h3><div class="desc">用于客户端信任 SSTP 服务器证书或其签发 CA。只上传 <span class="code">.cer / .crt / .der</span> 公钥证书；<b>不要上传 .key 私钥</b>。客户端只通过 FRP 公网域名下载证书，并通过 Windows certutil + UAC 安装到“本地计算机\\受信任的根证书颁发机构”。OHA 不再因为 CN/SAN 与 VPN 地址不同而阻止配置；但 Windows 原生 SSTP/Schannel 仍可能执行系统级名称校验。</div><input id="vpnCertificateFile" type="file" accept=".cer,.crt,.der,application/pkix-cert,application/x-x509-ca-cert" style="width:100%;height:auto;padding:6px"><div class="row" style="margin-top:8px"><button type="button" onclick="uploadSstpCertificate()">上传/替换证书</button><button type="button" class="danger" onclick="deleteSstpCertificate()">删除服务器证书</button></div><div class="muted" id="vpnCertificateState" style="margin-top:7px">尚未读取证书状态</div></div>
+        <div class="setting" data-sstp-setting><h3>客户端保留 VPN 配置</h3><div class="desc">开启：Windows 中保留 OHA 创建的 SSTP RAS 连接。关闭：每次 OHA 用户登录后先清理旧的本地 VPN 电话簿项，程序退出时再次删除；证书信任不随此选项删除。</div><label class="switch-line"><input type="checkbox" id="vpnKeepLocalProfile" checked>在客户端电脑保留 Windows SSTP VPN 配置</label></div>
+        <div class="setting" data-sstp-setting><h3>VPN 登录账号</h3><div class="desc">当前为所有获授权 OHA 用户统一下发的一组 SSTP 登录凭据。</div><input id="vpnUsername" style="width:100%" autocomplete="off" placeholder="VPN 用户名"></div>
+        <div class="setting" data-sstp-setting><h3>VPN 登录密码</h3><div class="desc">管理页不会回显已有密码。密码框留空表示保持原密码；勾选“清除”才会删除服务器保存的密码。</div><input id="vpnPassword" type="password" style="width:100%" autocomplete="new-password" placeholder="留空保持原密码"><label class="switch-line" style="margin-top:8px"><input type="checkbox" id="vpnClearPassword">清除已保存的 VPN 密码</label><div class="muted" id="vpnPasswordState" style="margin-top:6px"></div></div>
+        <div class="setting" data-http-proxy-setting><h3>HIS HTTP 代理地址</h3><div class="desc">格式 <span class="code">http://host:port</span>。仅主 HIS WebView2 使用；OHA API 的 HttpClient 和独立 DeepSeek WebView2 都不使用此代理。</div><input id="httpProxyUrl" style="width:100%" placeholder="http://proxy.example.com:8080"></div>
+        <div class="setting"><h3>接入路由模式</h3><div class="desc">SSTP：分流时关闭 Windows“在远程网络上使用默认网关”，VPN IPv4 保持“自动跃点”，并通过一次 UAC 添加下方非持久路由，下一跳固定 192.168.30.1；正常断开后路由随 PPP 接口失效。全局时删除 OHA 分流路由、保持“自动跃点”并启用 Windows VPN 默认 IPv4 路由；客户端会在拨号前为实际 SSTP 公网端点添加一条经原物理网关的 /32 保护路由，避免默认路由回卷造成 VPN 自动掉线。全局模式下的公网访问仍要求 VPN 服务端提供可用的转发/NAT 和 DNS；如果服务端只提供医院内网，请使用分流模式。HTTP代理：分流时 PAC 仅对下方网段返回代理，其它页面 DIRECT；全局时主 HIS WebView2 的全部页面请求走该 HTTP 代理。</div><select id="vpnRoutingMode"><option value="split">仅指定网段（分流）</option><option value="global">全部流量（全局）</option></select></div>
+        <div class="setting"><h3>指定接入网段</h3><div class="desc">仅在“仅指定网段”模式使用，每行一个 IPv4 CIDR，例如 <span class="code">11.12.199.0/24</span>。SSTP 模式用于 Windows 路由；HTTP代理模式用于 WebView2 PAC 匹配。</div><textarea id="vpnRoutes" rows="5" style="width:100%" placeholder="11.12.199.0/24"></textarea></div>
+      </div>
+      <div class="row" style="margin-top:16px"><button class="primary" onclick="saveSettings()">保存客户端设置</button><span class="status" id="settingsMessage"></span></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="moduleEditorMask" onclick="maskClose(event)">
+  <div class="modal">
+    <div class="modal-head"><h3 id="moduleEditorTitle">新增模块</h3><button onclick="closeModuleEditor()">关闭</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field"><label>技术 ID</label><input id="mName" placeholder="例如 warning-common"><div class="sub">创建后不支持改技术ID；允许字母、数字、点、下划线、短横线。</div></div>
+        <div class="field"><label>JS 文件名</label><input id="mFile" placeholder="例如 warning-common.js"><div class="sub">只能是 modules 根目录下的安全 .js 文件名。</div></div>
+        <div class="field"><label>显示名称</label><input id="mDisplayName"></div>
+        <div class="field"><label>版本</label><input id="mVersion" placeholder="1.0.0"></div>
+        <div class="field"><label>优先级</label><input id="mPriority" type="number" value="100"></div>
+        <div class="field"><label>run-at</label><select id="mRunAt"><option value="document-start">document-start</option><option value="document-end">document-end</option><option value="document-idle" selected>document-idle</option></select></div>
+        <div class="field"><label>Channel</label><input id="mChannel" value="stable"></div>
+        <div class="field"><label>角色</label><input id="mRoles" value="admin,doctor"><div class="sub">逗号或换行分隔：admin / doctor / nurse。留空表示不限角色。</div></div>
+        <div class="field full"><div class="checks"><label><input id="mEnabled" type="checkbox" checked>全局启用</label><label><input id="mUserControllable" type="checkbox" checked>允许按用户控制</label><label><input id="mDefaultUserEnabled" type="checkbox">新用户默认启用</label></div></div>
+        <div class="field full"><label>@match / 匹配规则</label><textarea id="mMatches" placeholder="每行一项，例如：*://11.12.199.244:8003/*"></textarea></div>
+        <div class="field"><label>@grant</label><textarea id="mGrants" placeholder="每行一项"></textarea></div>
+        <div class="field"><label>@connect</label><textarea id="mConnect" placeholder="每行一项"></textarea></div>
+        <div class="field full"><label>依赖模块</label><textarea id="mDependencies" placeholder="每行一个技术ID，例如 suite-manager"></textarea></div>
+        <div class="field full"><label>JavaScript 源码</label><div class="row" style="margin-bottom:5px"><input id="mSourceFile" type="file" accept=".js,.txt,text/javascript,text/plain" style="height:auto;padding:6px;min-width:250px" onchange="loadSourceFile(event)"><button onclick="readMetadataFromSource()">从 Userscript 头读取基础信息</button><span class="sub">可直接选择本地 .js/.txt，或粘贴源码；元数据读取不会修改源码。</span></div><textarea class="source" id="mSource" spellcheck="false"></textarea></div>
+      </div>
+      <div id="moduleEditorMessage" class="status" style="margin-top:10px"></div>
+    </div>
+    <div class="modal-foot"><button onclick="closeModuleEditor()">取消</button><button class="primary" id="moduleSaveButton" onclick="saveModule()">保存模块</button></div>
+  </div>
+</div>
+
+<script>
+let token='';let currentUser='';let moduleCatalog=[];let globalSettings=null;let editorMode='new';let editorModuleName='';let moduleWebdavRows=[];
+function el(id){return document.getElementById(id)}
+function setMsg(text,bad=false){const e=el('message');e.textContent=text||'';e.className='status '+(bad?'bad':'ok')}
+function setStorageMsg(text,bad=false){const e=el('storageMessage');e.textContent=text||'';e.className='status '+(bad?'bad':'ok')}
+function setModuleMsg(text,bad=false){const e=el('moduleMessage');e.textContent=text||'';e.className='status '+(bad?'bad':'ok')}
+function setModuleWebdavMsg(text,bad=false){const e=el('moduleWebdavMessage');if(!e)return;e.textContent=text||'';e.className='status '+(bad?'bad':'ok')}
+function setEditorMsg(text,bad=false){const e=el('moduleEditorMessage');e.textContent=text||'';e.className='status '+(bad?'bad':'ok')}
+function setSettingsMsg(text,bad=false){const e=el('settingsMessage');e.textContent=text||'';e.className='status '+(bad?'bad':'ok')}
+async function api(path,options={}){options.headers=Object.assign({'Content-Type':'application/json'},options.headers||{});if(token)options.headers.Authorization='Bearer '+token;const r=await fetch(path,options);let data={};try{data=await r.json()}catch(e){data={detail:await r.text()}}if(!r.ok)throw new Error(data.detail||data.error||('HTTP '+r.status));return data}
+async function login(){try{const u=el('loginUser').value.trim();const p=el('loginPassword').value;const data=await api('/api/auth/login',{method:'POST',body:JSON.stringify({username:u,password:p,deviceId:'SERVER-ADMIN-WEB'})});if(data.role!=='admin')throw new Error('该账号不是管理员');token=data.token;currentUser=data.username;el('loginPassword').value='';el('loginCard').style.display='none';el('manageCard').style.display='block';el('loginState').textContent='管理员：'+currentUser;await loadAll()}catch(e){el('serverState').textContent='登录失败：'+e.message;el('serverState').className='status bad'}}
+function logoutLocal(){token='';currentUser='';moduleCatalog=[];globalSettings=null;el('manageCard').style.display='none';el('loginCard').style.display='block';el('serverState').textContent='未登录';el('serverState').className='status'}
+function showSection(name){for(const n of ['users','storage','modules','settings','ai']){el('section'+cap(n)).classList.toggle('active',name===n);el('tab'+cap(n)).classList.toggle('active',name===n)}if(name==='modules'){loadModulesAndBackups();loadModuleWebdavSettings(true)}if(name==='storage')loadStorageUsage()}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+async function loadAll(){try{await loadModules();await loadSettings();await loadAiProviders();await loadUsers();if(el('sectionStorage').classList.contains('active'))await loadStorageUsage()}catch(e){setMsg(e.message,true);setModuleMsg(e.message,true);setSettingsMsg(e.message,true);setStorageMsg(e.message,true)}}
+function setAiMsg(text,bad=false){const e=el('aiMessage');if(!e)return;e.textContent=text||'';e.className='status '+(bad?'bad':'ok')}
+function aiProviderIds(){return[['deepseek','Deepseek'],['glm','Glm'],['openai','Openai']]}
+async function loadAiProviders(){try{const data=await api('/api/admin/ai-providers'),providers=data.providers||{};for(const [id,suffix] of aiProviderIds()){const p=providers[id]||{};el('ai'+suffix+'Enabled').checked=p.enabled===true;el('ai'+suffix+'Base').value=p.apiBase||'';el('ai'+suffix+'Key').value='';el('ai'+suffix+'TextModel').value=p.textModel||'';el('ai'+suffix+'VisionModel').value=p.visionModel||'';el('ai'+suffix+'ClearKey').checked=false;el('ai'+suffix+'KeyState').textContent=p.apiKeyConfigured?'服务器已配置API Key（不会回显）':'尚未配置API Key';if(id==='openai'){el('aiOpenaiProxyEnabled').checked=p.proxyEnabled===true;el('aiOpenaiProxyUrl').value=p.proxyUrl||'';}}setAiMsg('已读取AI模型配置')}catch(e){setAiMsg(e.message,true)}}
+async function saveAiProviders(){try{const providers={};for(const [id,suffix] of aiProviderIds()){providers[id]={enabled:el('ai'+suffix+'Enabled').checked,apiBase:el('ai'+suffix+'Base').value.trim(),apiKey:el('ai'+suffix+'Key').value,clearApiKey:el('ai'+suffix+'ClearKey').checked,textModel:el('ai'+suffix+'TextModel').value.trim(),visionModel:el('ai'+suffix+'VisionModel').value.trim()};if(id==='openai'){providers[id].proxyEnabled=el('aiOpenaiProxyEnabled').checked;providers[id].proxyUrl=el('aiOpenaiProxyUrl').value.trim();}}const data=await api('/api/admin/ai-providers',{method:'PUT',body:JSON.stringify({providers})});for(const [id,suffix] of aiProviderIds()){const p=(data.providers||{})[id]||{};el('ai'+suffix+'Key').value='';el('ai'+suffix+'ClearKey').checked=false;el('ai'+suffix+'KeyState').textContent=p.apiKeyConfigured?'服务器已配置API Key（不会回显）':'尚未配置API Key';if(id==='openai'){el('aiOpenaiProxyEnabled').checked=p.proxyEnabled===true;el('aiOpenaiProxyUrl').value=p.proxyUrl||'';}}setAiMsg('AI模型配置已保存；OpenAI独立代理仅作用于OpenAI文本与识图请求。')}catch(e){setAiMsg(e.message,true)}}
+async function loadSettings(){const data=await api('/api/admin/settings');globalSettings=data;el('serverEndpointDisplay').value=data.serverEndpointDisplay||'hidden';el('deepSeekProxyDisplay').value=data.deepSeekProxyDisplay||'hidden';el('networkStatusVisible').checked=data.networkStatusVisible!==false;el('mobileImageCompressionMode').value=data.mobileImageCompressionMode||'light';el('publicAuthEnabled').checked=data.publicAuthEnabled===true;el('publicAuthUrl').value=data.publicAuthUrl||'';el('publicAuthAllowInvalidTls').checked=data.publicAuthAllowInvalidTls===true;el('deepSeekNavigationRestricted').checked=data.deepSeekNavigationRestricted!==false;el('deepSeekExternalNavigationAction').value=data.deepSeekExternalNavigationAction||'block';el('deepSeekAllowedHosts').value=(data.deepSeekAllowedHosts||['deepseek.com']).join('\n');el('hisHomeUrl').value=data.hisHomeUrl||'';el('deepSeekHomeUrl').value=data.deepSeekHomeUrl||'';el('extensionWindowShowDomain').checked=data.extensionWindowShowDomain!==false;renderBookmarkRows('extension',data.extensionBookmarks||[]);renderBookmarkRows('deepSeek',data.deepSeekBookmarks||[]);el('vpnGlobalEnabled').checked=data.vpnGlobalEnabled===true;el('vpnAccessMode').value=data.vpnAccessMode||'sstp';el('vpnEntryName').value=data.vpnEntryName||'OpenHisAssistant Hospital VPN';el('vpnServerAddress').value=data.vpnServerAddress||'';el('vpnUsername').value=data.vpnUsername||'';el('vpnPassword').value='';el('vpnClearPassword').checked=false;el('vpnKeepLocalProfile').checked=data.vpnKeepLocalProfile!==false;el('httpProxyUrl').value=data.httpProxyUrl||'';el('vpnRoutingMode').value=data.vpnRoutingMode||'split';el('vpnRoutes').value=(data.vpnRoutes||[]).join('\n');el('vpnPasswordState').textContent=data.vpnPasswordConfigured?'服务器已保存 VPN 密码（不会回显）':'尚未保存 VPN 密码';renderVpnCertificateState(data);updateVpnRouteUi();updateAccessModeUi();setSettingsMsg('已读取服务器设置')}
+async function saveSettings(){try{const body={serverEndpointDisplay:el('serverEndpointDisplay').value,deepSeekProxyDisplay:el('deepSeekProxyDisplay').value,networkStatusVisible:el('networkStatusVisible').checked,ohaUiPanelEnabled:false,mobileImageCompressionMode:el('mobileImageCompressionMode').value,publicAuthEnabled:el('publicAuthEnabled').checked,publicAuthUrl:el('publicAuthUrl').value.trim(),publicAuthAllowInvalidTls:el('publicAuthAllowInvalidTls').checked,deepSeekNavigationRestricted:el('deepSeekNavigationRestricted').checked,deepSeekExternalNavigationAction:el('deepSeekExternalNavigationAction').value,deepSeekAllowedHosts:splitList(el('deepSeekAllowedHosts').value),hisHomeUrl:el('hisHomeUrl').value.trim(),deepSeekHomeUrl:el('deepSeekHomeUrl').value.trim(),extensionBookmarks:collectBookmarkRows('extension'),extensionWindowShowDomain:el('extensionWindowShowDomain').checked,deepSeekBookmarks:collectBookmarkRows('deepSeek'),vpnGlobalEnabled:el('vpnGlobalEnabled').checked,vpnAccessMode:el('vpnAccessMode').value,vpnEntryName:el('vpnEntryName').value.trim(),vpnServerAddress:el('vpnServerAddress').value.trim(),vpnUsername:el('vpnUsername').value.trim(),vpnPassword:el('vpnPassword').value,vpnClearPassword:el('vpnClearPassword').checked,vpnKeepLocalProfile:el('vpnKeepLocalProfile').checked,httpProxyUrl:el('httpProxyUrl').value.trim(),vpnRoutingMode:el('vpnRoutingMode').value,vpnRoutes:splitList(el('vpnRoutes').value)};const data=await api('/api/admin/settings',{method:'PUT',body:JSON.stringify(body)});globalSettings=data;el('publicAuthUrl').value=data.publicAuthUrl||'';el('publicAuthAllowInvalidTls').checked=data.publicAuthAllowInvalidTls===true;el('deepSeekAllowedHosts').value=(data.deepSeekAllowedHosts||[]).join('\n');el('hisHomeUrl').value=data.hisHomeUrl||'';el('deepSeekHomeUrl').value=data.deepSeekHomeUrl||'';el('extensionWindowShowDomain').checked=data.extensionWindowShowDomain!==false;renderBookmarkRows('extension',data.extensionBookmarks||[]);renderBookmarkRows('deepSeek',data.deepSeekBookmarks||[]);el('httpProxyUrl').value=data.httpProxyUrl||'';el('vpnPassword').value='';el('vpnClearPassword').checked=false;el('vpnKeepLocalProfile').checked=data.vpnKeepLocalProfile!==false;el('vpnPasswordState').textContent=data.vpnPasswordConfigured?'服务器已保存 VPN 密码（不会回显）':'尚未保存 VPN 密码';el('vpnRoutes').value=(data.vpnRoutes||[]).join('\n');renderVpnCertificateState(data);updateVpnRouteUi();updateAccessModeUi();setSettingsMsg('已保存。其它客户端需重新登录后生效。')}catch(e){setSettingsMsg(e.message,true)}}
+function renderVpnCertificateState(data){const e=el('vpnCertificateState');if(!e)return;if(data&&data.vpnCertificateConfigured){const name=data.vpnCertificateFileName||'sstp-trust.cer';const sha=(data.vpnCertificateSha256||'').slice(0,16);const size=Number(data.vpnCertificateSize||0);e.textContent='已配置：'+name+(size?(' / '+size+' B'):'')+(sha?(' / SHA-256 '+sha+'…'):'')}else{e.textContent='尚未上传 SSTP 公钥证书；使用公共 CA 证书的 SSTP 服务器可保持为空'}}
+async function uploadSstpCertificate(){try{const input=el('vpnCertificateFile');const file=input&&input.files&&input.files[0];if(!file)throw new Error('请先选择 .cer / .crt / .der 公钥证书');if(file.size>1024*1024)throw new Error('证书文件不能超过 1 MB');if(/\.(key|pfx|p12|pem)$/i.test(file.name))throw new Error('禁止上传私钥或证书私钥包；请只上传 .cer / .crt / .der 公钥证书');setSettingsMsg('正在上传 SSTP 证书…');const r=await fetch('/api/admin/settings/sstp-certificate',{method:'PUT',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/octet-stream','X-OHA-Filename':encodeURIComponent(file.name)},body:await file.arrayBuffer()});let data={};try{data=await r.json()}catch(e){data={detail:await r.text()}}if(!r.ok)throw new Error(data.detail||data.error||('HTTP '+r.status));globalSettings=Object.assign({},globalSettings||{},data);renderVpnCertificateState(data);input.value='';setSettingsMsg('SSTP 公钥证书已上传。客户端下一次连接前会按需安装；其它客户端会话需重新登录。')}catch(e){setSettingsMsg(e.message,true)}}
+async function deleteSstpCertificate(){if(!confirm('确定删除服务器保存的 SSTP 公钥证书？\n\n这不会删除已经安装到客户端 Windows 证书库中的证书。'))return;try{const data=await api('/api/admin/settings/sstp-certificate',{method:'DELETE'});globalSettings=Object.assign({},globalSettings||{},data);renderVpnCertificateState(data);setSettingsMsg('服务器 SSTP 公钥证书已删除。')}catch(e){setSettingsMsg(e.message,true)}}
+function updateVpnRouteUi(){const split=el('vpnRoutingMode').value==='split';el('vpnRoutes').disabled=!split;el('vpnRoutes').style.opacity=split?'1':'.55'}
+function updateAccessModeUi(){const sstp=el('vpnAccessMode').value!=='http-proxy';document.querySelectorAll('[data-sstp-setting]').forEach(x=>{x.style.display=sstp?'block':'none'});document.querySelectorAll('[data-http-proxy-setting]').forEach(x=>{x.style.display=sstp?'none':'block'})}
+function roleAllows(module,role){const roles=module.roles||[];return module.enabled!==false&&(!roles.length||roles.includes(role))}
+function renderModuleSwitches(tr,u){const box=tr.querySelector('[data-modules]');box.innerHTML='';const assignable=moduleCatalog.filter(m=>m.userControllable);if(!assignable.length){box.innerHTML='<span class="muted">暂无可分配脚本</span>';return}for(const m of assignable){const allowed=roleAllows(m,u.role);const enabled=allowed&&u.modulePermissions&&u.modulePermissions[m.name]!==false;const label=document.createElement('label');label.className='module-toggle '+(enabled?'':'off');label.title=allowed?'切换后重新登录客户端生效':'当前角色或全局状态不允许使用此脚本';const cb=document.createElement('input');cb.type='checkbox';cb.checked=enabled;cb.disabled=!allowed;cb.onchange=()=>setUserModule(u.username,m.name,cb.checked);const text=document.createElement('span');text.textContent=m.displayName||m.name;const ver=document.createElement('span');ver.className='ver';ver.textContent=m.version?(' '+m.version):'';label.append(cb,text,ver);box.appendChild(label)}}
+function renderClientFeatureSwitches(tr,u){const box=tr.querySelector('[data-features]');box.innerHTML='';const visible=u.settingsButtonPreference!==false;const label=document.createElement('label');label.className='module-toggle '+(visible?'':'off');label.title='控制该账号登录后是否显示客户端顶部“设置”按钮；关闭后按钮直接隐藏，对 admin 同样生效';const cb=document.createElement('input');cb.type='checkbox';cb.checked=visible;cb.onchange=()=>setUserSettingsButton(u.username,cb.checked);const text=document.createElement('span');text.textContent='设置按钮';label.append(cb,text);box.appendChild(label);const vpn=!!u.sstpVpnPreference;const vpnLabel=document.createElement('label');vpnLabel.className='module-toggle '+(vpn?'':'off');vpnLabel.title='控制该账号是否允许通过登录前 VPN 弹窗或登录后的远程接入开关建立 SSTP/HTTP代理；未勾选时验证账号后会提示无权限';const vpnCb=document.createElement('input');vpnCb.type='checkbox';vpnCb.checked=vpn;vpnCb.onchange=()=>setUserVpnPermission(u.username,vpnCb.checked);const vpnText=document.createElement('span');vpnText.textContent='VPN/远程接入';vpnLabel.append(vpnCb,vpnText);box.appendChild(vpnLabel)}
+async function loadUsers(){try{const data=await api('/api/admin/users');const body=el('userRows');body.innerHTML='';for(const u of data.users){const tr=document.createElement('tr');const roleOptions=['doctor','nurse','admin'].map(r=>'<option value="'+r+'" '+(u.role===r?'selected':'')+'>'+r+'</option>').join('');tr.innerHTML='<td>'+u.id+'</td><td><b>'+escapeHtml(u.username)+'</b></td><td><select data-role>'+roleOptions+'</select></td><td>'+(u.enabled?'<span class="pill">启用</span>':'<span class="bad">禁用</span>')+'</td><td>'+u.activeSessions+'</td><td><div class="module-box" data-modules></div></td><td><div class="module-box" data-features></div></td><td class="actions"><button data-save>保存角色</button><button data-toggle>'+(u.enabled?'禁用':'启用')+'</button><button data-pass>重置密码</button><button data-revoke>撤销会话</button><button class="danger" data-delete>删除</button></td>';tr.querySelector('[data-save]').onclick=()=>updateUser(u.username,{role:tr.querySelector('[data-role]').value});tr.querySelector('[data-toggle]').onclick=()=>updateUser(u.username,{enabled:!u.enabled});tr.querySelector('[data-pass]').onclick=()=>resetPassword(u.username);tr.querySelector('[data-revoke]').onclick=()=>revokeSessions(u.username);tr.querySelector('[data-delete]').onclick=()=>deleteUser(u.username);renderModuleSwitches(tr,u);renderClientFeatureSwitches(tr,u);body.appendChild(tr)}setMsg('已刷新 '+data.users.length+' 个账号，'+moduleCatalog.filter(m=>m.userControllable).length+' 个可分配脚本')}catch(e){setMsg(e.message,true)}}
+async function setUserSettingsButton(username,enabled){try{const r=await api('/api/admin/users/'+encodeURIComponent(username)+'/features/settings-button',{method:'PUT',body:JSON.stringify({enabled})});setMsg('已'+(enabled?'显示':'隐藏')+' '+username+' 的客户端“设置”按钮'+(r.sessionsRevoked?'；已撤销 '+r.sessionsRevoked+' 个其它会话，重新登录后生效':''));await loadUsers()}catch(e){setMsg(e.message,true);await loadUsers()}}
+async function setUserVpnPermission(username,enabled){try{const r=await api('/api/admin/users/'+encodeURIComponent(username)+'/features/sstp-vpn',{method:'PUT',body:JSON.stringify({enabled})});setMsg('已'+(enabled?'授权':'取消授权')+' '+username+' 的 VPN/远程接入权限'+(r.sessionsRevoked?'；已撤销 '+r.sessionsRevoked+' 个已有会话':''));await loadUsers()}catch(e){setMsg(e.message,true);await loadUsers()}}
+async function setUserModule(username,moduleName,enabled){try{const r=await api('/api/admin/users/'+encodeURIComponent(username)+'/modules/'+encodeURIComponent(moduleName),{method:'PUT',body:JSON.stringify({enabled})});setMsg('已'+(enabled?'启用':'关闭')+' '+username+' / '+moduleName+(r.sessionsRevoked?'；已撤销 '+r.sessionsRevoked+' 个客户端会话':''));await loadUsers()}catch(e){setMsg(e.message,true);await loadUsers()}}
+async function createUser(){try{const username=el('newUser').value.trim();const password=el('newPassword').value;const role=el('newRole').value;await api('/api/admin/users',{method:'POST',body:JSON.stringify({username,password,role})});el('newUser').value='';el('newPassword').value='';setMsg('已新增：'+username);await loadUsers()}catch(e){setMsg(e.message,true)}}
+async function updateUser(username,body){try{await api('/api/admin/users/'+encodeURIComponent(username),{method:'PATCH',body:JSON.stringify(body)});setMsg('已更新：'+username);if(username===currentUser){logoutLocal();return}await loadUsers()}catch(e){setMsg(e.message,true);await loadUsers()}}
+async function resetPassword(username){const p=prompt('请输入 '+username+' 的新密码（至少6位）：');if(p===null)return;try{await api('/api/admin/users/'+encodeURIComponent(username)+'/password',{method:'POST',body:JSON.stringify({password:p})});setMsg('密码已重置：'+username);if(username===currentUser)logoutLocal();else await loadUsers()}catch(e){setMsg(e.message,true)}}
+async function revokeSessions(username){if(!confirm('撤销 '+username+' 的全部登录会话？'))return;try{const r=await api('/api/admin/users/'+encodeURIComponent(username)+'/revoke-sessions',{method:'POST'});setMsg('已撤销 '+username+' 的会话：'+r.revoked+' 个');if(username===currentUser)logoutLocal();else await loadUsers()}catch(e){setMsg(e.message,true)}}
+async function deleteUser(username){if(!confirm('确定删除账号 '+username+'？该账号的掌上 OHA 快照、备注、便签、患者档案及 AI 缓存会从数据库删除，附件文件需到“空间管理”单独清理。此操作不可撤销。'))return;try{await api('/api/admin/users/'+encodeURIComponent(username),{method:'DELETE'});setMsg('已删除：'+username+'；残留附件可在空间管理查看');await loadUsers()}catch(e){setMsg(e.message,true)}}
+
+function storageBytes(value){const size=Math.max(0,Number(value)||0);if(size<1024)return Math.round(size)+' B';const units=['KB','MB','GB','TB'];let n=size,unit=-1;do{n/=1024;unit++}while(n>=1024&&unit<units.length-1);return n.toFixed(n>=10?1:2)+' '+units[unit]}
+function storageTextCell(row,value){const td=document.createElement('td');td.textContent=String(value);row.appendChild(td);return td}
+function storageEmptyRow(tableId,columns,message){const row=document.createElement('tr'),cell=storageTextCell(row,message);cell.colSpan=columns;cell.className='muted';el(tableId).appendChild(row)}
+async function loadStorageUsage(){
+  setStorageMsg('正在统计空间用量…');
+  try{
+    const data=await api('/api/admin/storage');
+    const db=data.database||{}, files=data.attachments||{}, users=data.users||[], orphans=data.orphans||[];
+    el('storageDatabaseBytes').textContent=storageBytes((db.fileBytes||0)+(db.walBytes||0))+(db.walBytes?'（含 WAL '+storageBytes(db.walBytes)+'）':'');
+    el('storagePayloadBytes').textContent=storageBytes(db.userDataApproxBytes);
+    el('storageActiveAttachments').textContent=storageBytes(files.activeBytes)+' / '+(files.activeFiles||0)+' 个文件';
+    el('storageOrphanAttachments').textContent=storageBytes(files.orphanBytes)+' / '+(files.orphanFiles||0)+' 个文件（'+orphans.length+' 个原账号）';
+    const accounts=el('storageUserRows');accounts.replaceChildren();
+    for(const user of users){
+      const d=user.details||{},row=document.createElement('tr');
+      storageTextCell(row,user.id);storageTextCell(row,user.username);
+      storageTextCell(row,user.enabled?'启用':'禁用');
+      storageTextCell(row,(d.snapshots||0)+' / '+(d.archives||0));
+      storageTextCell(row,(d.notes||0)+' / '+(d.analysis||0));
+      storageTextCell(row,storageBytes(user.dataBytes));
+      storageTextCell(row,(user.attachmentFiles||0)+' 个 / '+storageBytes(user.attachmentBytes)+(user.attachmentRecords!==user.attachmentFiles?'（数据库记录 '+user.attachmentRecords+'）':''));
+      const cell=document.createElement('td'),controls=document.createElement('div');
+      controls.className='storage-clear-controls';
+      const dataLabel=document.createElement('label'),dataOption=document.createElement('input');
+      dataLabel.className='storage-clear-choice';dataOption.type='checkbox';dataOption.checked=true;
+      dataLabel.append(dataOption,document.createTextNode('数据'));
+      const attachmentLabel=document.createElement('label'),attachmentOption=document.createElement('input');
+      attachmentLabel.className='storage-clear-choice';attachmentOption.type='checkbox';attachmentOption.checked=true;
+      attachmentLabel.append(attachmentOption,document.createTextNode('附件'));
+      const button=document.createElement('button');button.className='danger';button.textContent='清除数据';
+      const updateButton=()=>{button.disabled=!dataOption.checked&&!attachmentOption.checked};
+      dataOption.onchange=updateButton;attachmentOption.onchange=updateButton;
+      button.onclick=()=>clearExistingUserData(user,button,dataOption,attachmentOption);
+      const backupButton=document.createElement('button');backupButton.textContent='备份便签';
+      backupButton.onclick=()=>backupUserNotes(user,backupButton);
+      const restoreButton=document.createElement('button');restoreButton.textContent='还原便签';
+      const backupFile=document.createElement('input');backupFile.type='file';backupFile.accept='.zip,application/zip';backupFile.style.display='none';
+      restoreButton.onclick=()=>backupFile.click();
+      backupFile.onchange=async()=>{const file=backupFile.files&&backupFile.files[0];try{if(file)await restoreUserNotes(user,file,restoreButton)}finally{backupFile.value=''}};
+      controls.append(dataLabel,attachmentLabel,button,backupButton,restoreButton,backupFile);cell.appendChild(controls);
+      row.appendChild(cell);accounts.appendChild(row);
+    }
+    if(!users.length)storageEmptyRow('storageUserRows',8,'暂无账号');
+    const leftovers=el('storageOrphanRows');leftovers.replaceChildren();
+    for(const orphan of orphans){
+      const row=document.createElement('tr');
+      storageTextCell(row,orphan.userId);storageTextCell(row,orphan.files);storageTextCell(row,storageBytes(orphan.bytes));
+      const td=document.createElement('td'),button=document.createElement('button');
+      button.className='danger';button.textContent='清理残留';
+      button.onclick=()=>purgeOrphanStorage(orphan);td.appendChild(button);row.appendChild(td);leftovers.appendChild(row);
+    }
+    if(!orphans.length)storageEmptyRow('storageOrphanRows',4,'没有已删除账号的残留附件');
+    setStorageMsg('已更新空间用量');
+  }catch(e){setStorageMsg(e.message,true)}
+}
+async function backupUserNotes(user,button){
+  button.disabled=true;
+  setStorageMsg('正在生成 '+user.username+' 的便签与附件备份…');
+  try{
+    const response=await fetch('/api/admin/storage/users/'+Number(user.id)+'/notes/backup',{
+      headers:{Authorization:'Bearer '+token},cache:'no-store'
+    });
+    if(!response.ok){
+      let message='HTTP '+response.status;
+      try{const error=await response.json();message=error.detail||message}catch(e){}
+      throw new Error(message);
+    }
+    const blob=await response.blob(),url=URL.createObjectURL(blob);
+    const link=document.createElement('a');
+    link.href=url;
+    link.download='OHA便签_'+String(user.username).replace(/[\\/:*?"<>|]/g,'_')+'_'+new Date().toISOString().slice(0,10)+'.zip';
+    document.body.appendChild(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+    setStorageMsg('已下载 '+user.username+' 的便签备份（含对应附件），请妥善保存 ZIP 文件');
+  }catch(e){setStorageMsg(e.message,true)}
+  finally{button.disabled=false}
+}
+async function restoreUserNotes(user,file,button){
+  const username=String(user.username||''),id=Number(user.id);
+  if(!/\.zip$/i.test(file.name||'')){setStorageMsg('请选择便签备份 ZIP 文件',true);return}
+  const typed=prompt('即将把“'+file.name+'”中的便签文字和附件还原到账号 '+username+'（ID '+id+'）。现有便签会保留；同 ID 内容不同会另存为恢复副本。请输入目标用户名确认：');
+  if(typed===null)return;
+  if(typed.trim()!==username){setStorageMsg('用户名不匹配，未还原便签',true);return}
+  if(!confirm('确认将 ZIP 内的便签和附件合并到 '+username+'？仅接受同用户名的备份；此操作会写入服务器。'))return;
+  button.disabled=true;setStorageMsg('正在验证并还原 '+username+' 的便签和附件…');
+  try{
+    const result=await api('/api/admin/storage/users/'+id+'/notes/restore',{
+      method:'POST',headers:{
+        'Content-Type':'application/zip',
+        'X-OHA-Confirm-Username':encodeURIComponent(username),
+        'X-OHA-Confirm-User-Id':String(id)
+      },body:file
+    });
+    await loadStorageUsage();
+    setStorageMsg('已还原 '+username+'：新增 '+result.importedNotes+' 条便签（其中恢复副本 '+result.copiedNotes+' 条）、'+result.importedAttachments+' 个附件；跳过重复附件 '+result.skippedAttachments+' 个。移动端可点击“刷新云端”查看。');
+  }catch(e){setStorageMsg(e.message,true)}
+  finally{button.disabled=false}
+}
+async function clearExistingUserData(user,button,dataOption,attachmentOption){
+  const id=Number(user.id),username=String(user.username||'');
+  const clearData=dataOption.checked,clearAttachments=attachmentOption.checked;
+  if(!clearData&&!clearAttachments){setStorageMsg('请至少勾选“数据”或“附件”',true);return}
+  const scope=[clearData?'掌上 OHA 数据':null,clearAttachments?'附件记录和 '+(user.attachmentFiles||0)+' 个文件（'+storageBytes(user.attachmentBytes)+'）':null].filter(Boolean).join('、');
+  const retainedNotice=clearData&&!clearAttachments?'附件保留，但对应患者或便签清除后，移动端可能需要重新同步才能访问。':clearAttachments&&!clearData?'正文数据保留，但其中的附件链接会失效。':'';
+  const typed=prompt('即将永久清除现有账号 '+username+'（ID '+id+'）的'+scope+'。账号和权限保留，登录会话将被撤销。'+retainedNotice+'\n请先备份需要保留的内容，并输入用户名确认：');
+  if(typed===null)return;
+  if(typed.trim()!==username){setStorageMsg('输入的用户名不匹配，未清除数据',true);return}
+  if(!confirm('最后确认：永久清除账号 '+username+'（ID '+id+'）勾选的'+scope+'？未勾选的部分会保留，此操作无法撤销。'))return;
+  button.disabled=true;dataOption.disabled=true;attachmentOption.disabled=true;
+  try{
+    const result=await api('/api/admin/storage/users/'+id+'/clear',{method:'POST',body:JSON.stringify({
+      confirmUserId:id,confirmUsername:username,clearData,clearAttachments,
+      expectedDataBytes:user.dataBytes,expectedDetails:user.details,
+      expectedAttachmentRecords:user.attachmentRecords,
+      expectedAttachmentFiles:user.attachmentFiles,expectedAttachmentBytes:user.attachmentBytes
+    })});
+    if(username===currentUser){
+      logoutLocal();
+      el('serverState').textContent='当前账号数据已清除，登录会话已撤销，请重新登录';
+      el('serverState').className='status ok';
+      return;
+    }
+    await loadStorageUsage();
+    const cleared=[];
+    if(clearData)cleared.push(result.recordsDeleted+' 条数据记录');
+    if(clearAttachments)cleared.push(result.attachmentRecordsDeleted+' 条附件记录及 '+result.deletedFiles+' 个附件文件（'+storageBytes(result.freedBytes)+'）');
+    setStorageMsg('已清除 '+username+' 的'+cleared.join('、')+'；已撤销 '+result.sessionsRevoked+' 个会话');
+  }catch(e){
+    setStorageMsg(e.message,true);
+    if(username!==currentUser){
+      await loadStorageUsage();
+      setStorageMsg(e.message,true);
+    }
+  }finally{dataOption.disabled=false;attachmentOption.disabled=false;button.disabled=!dataOption.checked&&!attachmentOption.checked}
+}
+async function purgeOrphanStorage(orphan){const id=Number(orphan.userId),typed=prompt('即将永久清理原账号 ID '+id+' 的 '+(orphan.files||0)+' 个附件文件（'+storageBytes(orphan.bytes)+'）。请先备份需要保留的文件，再输入账号 ID 确认：');if(typed===null)return;if(typed.trim()!==String(id)){setStorageMsg('输入的账号 ID 不匹配，未清理',true);return}if(!confirm('最后确认：永久删除原账号 ID '+id+' 的残留附件？此操作无法撤销。'))return;try{const result=await api('/api/admin/storage/orphans/'+id+'/purge',{method:'POST',body:JSON.stringify({confirmUserId:id,expectedFiles:orphan.files,expectedBytes:orphan.bytes})});await loadStorageUsage();setStorageMsg('已清理原账号 ID '+id+'：'+result.deletedFiles+' 个文件，释放 '+storageBytes(result.freedBytes))}catch(e){setStorageMsg(e.message,true)}}
+
+async function loadModuleWebdavSettings(silent=false){try{const data=await api('/api/admin/modules/webdav/settings');el('moduleWebdavEndpoint').value=data.endpoint||'';el('moduleWebdavUsername').value=data.username||'';el('moduleWebdavPassword').value='';el('moduleWebdavClearPassword').checked=false;el('moduleWebdavVerifyTls').checked=data.verifyTls!==false;el('moduleWebdavPasswordState').textContent=data.passwordConfigured?'服务器已保存 WebDAV 密码（不会回显）':'尚未保存 WebDAV 密码';if(!silent)setModuleWebdavMsg('已读取 WebDAV 更新配置')}catch(e){if(!silent)setModuleWebdavMsg(e.message,true)}}
+async function saveModuleWebdavSettings(silent=false){const body={endpoint:el('moduleWebdavEndpoint').value.trim(),username:el('moduleWebdavUsername').value.trim(),password:el('moduleWebdavPassword').value||null,clearPassword:el('moduleWebdavClearPassword').checked,verifyTls:el('moduleWebdavVerifyTls').checked};const data=await api('/api/admin/modules/webdav/settings',{method:'PUT',body:JSON.stringify(body)});el('moduleWebdavEndpoint').value=data.endpoint||'';el('moduleWebdavUsername').value=data.username||'';el('moduleWebdavPassword').value='';el('moduleWebdavClearPassword').checked=false;el('moduleWebdavVerifyTls').checked=data.verifyTls!==false;el('moduleWebdavPasswordState').textContent=data.passwordConfigured?'服务器已保存 WebDAV 密码（不会回显）':'尚未保存 WebDAV 密码';if(!silent)setModuleWebdavMsg('WebDAV 更新配置已保存');return data}
+function moduleWebdavStatusText(status){return {newer:'发现较新版本',same:'版本一致',older:'云端版本较旧','remote-missing':'云端未提供','local-missing':'服务器缺少模块'}[status]||status||'未知'}
+function renderModuleWebdavStatusRows(rows){moduleWebdavRows=Array.isArray(rows)?rows:[];const body=el('moduleWebdavRows');body.innerHTML='';let newerCount=0;for(const row of moduleWebdavRows){if(row.status==='newer')newerCount++;const tr=document.createElement('tr');const statusClass=row.status==='newer'?'ok':(row.status==='older'||row.status==='local-missing'?'bad':'muted');let op='<span class="muted">—</span>';if(row.status==='newer')op='<button class="primary" data-update>更新</button>';else if(row.status==='same')op='<button data-force>重新同步</button>';else if(row.status==='older')op='<button class="warn" data-force>降级同步</button>';tr.innerHTML='<td><b>'+escapeHtml(row.displayName||row.moduleName)+'</b><br><span class="code">'+escapeHtml(row.moduleName||'')+'</span></td><td><b>'+escapeHtml(row.localVersion||'—')+'</b></td><td><b>'+escapeHtml(row.remoteVersion||'—')+'</b></td><td><span class="'+statusClass+'">'+escapeHtml(moduleWebdavStatusText(row.status))+'</span></td><td><span class="code">'+escapeHtml(row.remoteFileName||'—')+'</span><br><span class="muted">'+(row.remoteBytes?formatBytes(row.remoteBytes):'')+'</span></td><td class="actions">'+op+'</td>';const update=tr.querySelector('[data-update]');if(update)update.onclick=()=>applyModuleWebdavUpdates([row.moduleName],false);const force=tr.querySelector('[data-force]');if(force)force.onclick=()=>{const action=row.status==='older'?'把服务器模块降级到 WebDAV 较旧版本':'用 WebDAV 源码重新覆盖同版本模块';if(confirm('确定'+action+'？\n\n覆盖前服务器会自动备份当前模块。'))applyModuleWebdavUpdates([row.moduleName],true)};body.appendChild(tr)}if(!moduleWebdavRows.length)body.innerHTML='<tr><td colspan="6" class="muted">WebDAV 源码清单没有可识别的正式脚本。</td></tr>';el('moduleWebdavUpdateAll').disabled=newerCount===0}
+async function checkModuleWebdavUpdates(){try{setModuleWebdavMsg('正在连接 WebDAV 并读取源码清单…');await saveModuleWebdavSettings(true);const data=await api('/api/admin/modules/webdav/check',{method:'POST',body:'{}'});renderModuleWebdavStatusRows(data.rows||[]);const newer=(data.rows||[]).filter(x=>x.status==='newer').length;const created=data.manifest&&data.manifest.createdAt?('；源码快照 '+data.manifest.createdAt):'';setModuleWebdavMsg('检查完成：发现 '+newer+' 个较新版本'+created)}catch(e){setModuleWebdavMsg(e.message,true)}}
+async function applyModuleWebdavUpdates(names,force=false){try{const list=(names||[]).filter(Boolean);if(!list.length)throw new Error('没有可更新模块');setModuleWebdavMsg('正在从 WebDAV 下载并校验 '+list.length+' 个脚本…');const data=await api('/api/admin/modules/webdav/apply',{method:'POST',body:JSON.stringify({modules:list,force:!!force})});const updated=data.updated||[];setModuleWebdavMsg(updated.length?'已更新 '+updated.length+' 个模块：'+updated.map(x=>x.moduleName+' '+x.version).join('；')+(data.sessionsRevoked?'；已撤销 '+data.sessionsRevoked+' 个其它客户端会话':''):'没有模块需要更新');await loadModulesAndBackups();await loadUsers();await checkModuleWebdavUpdates()}catch(e){setModuleWebdavMsg(e.message,true)}}
+async function applyAllNewerModuleWebdavUpdates(){const names=moduleWebdavRows.filter(x=>x.status==='newer').map(x=>x.moduleName);if(!names.length){setModuleWebdavMsg('当前没有较新版本');return}if(!confirm('确定从 WebDAV 更新 '+names.length+' 个较新版本脚本？\n\n服务器会先完整下载并校验全部目标源码，再为每个现有模块自动备份后统一更新；完成后其它客户端会话需要重新登录。'))return;await applyModuleWebdavUpdates(names,false)}
+
+async function loadModules(){const data=await api('/api/admin/modules');moduleCatalog=data.modules||[];renderModuleTable();return data}
+function renderModuleTable(){const body=el('moduleRows');body.innerHTML='';for(const m of moduleCatalog){const tr=document.createElement('tr');const matches=(m.matches||[]).slice(0,2).map(escapeHtml).join('<br>')+((m.matches||[]).length>2?'<br><span class="muted">+'+((m.matches||[]).length-2)+' 条</span>':'');tr.innerHTML='<td class="module-meta"><b>'+escapeHtml(m.displayName||m.name)+'</b><span class="code">'+escapeHtml(m.name)+'</span></td><td><b>'+escapeHtml(m.version||'')+'</b><br><span class="code">'+escapeHtml(m.file||'')+'</span><br><span class="muted">'+formatBytes(m.sourceSize||0)+'</span></td><td>'+(m.enabled?'<span class="pill">全局启用</span>':'<span class="pill off">全局关闭</span>')+'<br><span class="muted">'+(m.userControllable?'用户可控':'固定运行')+' / 默认'+(m.defaultUserEnabled?'开':'关')+'</span></td><td><span class="code">'+escapeHtml(m.runAt||'')+'</span><br><span class="muted">priority '+m.priority+'</span></td><td><span class="small">'+escapeHtml((m.roles||[]).join(', ')||'不限')+'</span><br><span class="code">'+matches+'</span></td><td class="code">'+escapeHtml((m.dependencies||[]).join(', ')||'—')+'</td><td class="hash">'+escapeHtml(m.hash||'')+'</td><td class="actions nowrap"><button data-edit>编辑</button><button class="warn" data-backup>备份</button><button class="danger" data-delete>删除</button></td>';tr.querySelector('[data-edit]').onclick=()=>openEditModule(m.name);tr.querySelector('[data-backup]').onclick=()=>backupModule(m.name);tr.querySelector('[data-delete]').onclick=()=>deleteModule(m.name,m.displayName||m.name);body.appendChild(tr)}if(!moduleCatalog.length)body.innerHTML='<tr><td colspan="8" class="muted">暂无模块</td></tr>'}
+async function loadBackups(){const data=await api('/api/admin/modules/backups');const body=el('backupRows');body.innerHTML='';for(const b of data.backups||[]){const tr=document.createElement('tr');if(b.invalid){tr.innerHTML='<td colspan="5" class="bad">损坏备份：'+escapeHtml(b.backupId)+'</td><td><button class="danger">删除</button></td>';tr.querySelector('button').onclick=()=>deleteBackup(b.backupId)}else{tr.innerHTML='<td>'+formatTime(b.createdAt)+'</td><td><b>'+escapeHtml(b.displayName||b.moduleName)+'</b><br><span class="code">'+escapeHtml(b.moduleName)+'</span></td><td>'+escapeHtml(b.version||'')+'</td><td>'+escapeHtml(reasonText(b.reason))+'<br><span class="muted">'+formatBytes(b.sourceSize||0)+'</span></td><td class="code">'+escapeHtml(b.backupId)+'</td><td class="actions"><button data-restore>恢复</button><button class="danger" data-delete>删除备份</button></td>';tr.querySelector('[data-restore]').onclick=()=>restoreBackup(b.backupId,b.displayName||b.moduleName);tr.querySelector('[data-delete]').onclick=()=>deleteBackup(b.backupId)}body.appendChild(tr)}if(!(data.backups||[]).length)body.innerHTML='<tr><td colspan="6" class="muted">暂无模块备份</td></tr>'}
+async function loadModulesAndBackups(){try{await loadModules();await loadBackups();setModuleMsg('已读取 '+moduleCatalog.length+' 个模块')}catch(e){setModuleMsg(e.message,true)}}
+function resetEditor(){for(const id of ['mName','mFile','mDisplayName','mVersion','mRoles','mMatches','mGrants','mConnect','mDependencies','mSource'])el(id).value='';el('mSourceFile').value='';el('mPriority').value='100';el('mRunAt').value='document-idle';el('mChannel').value='stable';el('mRoles').value='admin,doctor';el('mEnabled').checked=true;el('mUserControllable').checked=true;el('mDefaultUserEnabled').checked=false;el('mName').disabled=false;setEditorMsg('')}
+function openNewModule(){editorMode='new';editorModuleName='';resetEditor();el('moduleEditorTitle').textContent='新增模块';el('moduleSaveButton').textContent='新增模块';el('moduleEditorMask').classList.add('show')}
+async function openEditModule(name){try{const data=await api('/api/admin/modules/'+encodeURIComponent(name)+'/detail');const m=data.module;editorMode='edit';editorModuleName=name;resetEditor();el('mName').value=m.name;el('mName').disabled=true;el('mFile').value=m.file||'';el('mDisplayName').value=m.displayName||'';el('mVersion').value=m.version||'';el('mPriority').value=String(m.priority||100);el('mRunAt').value=m.runAt||'document-idle';el('mChannel').value=m.channel||'stable';el('mRoles').value=(m.roles||[]).join('\n');el('mEnabled').checked=m.enabled!==false;el('mUserControllable').checked=m.userControllable!==false;el('mDefaultUserEnabled').checked=m.defaultUserEnabled!==false;el('mMatches').value=(m.matches||[]).join('\n');el('mGrants').value=(m.grants||[]).join('\n');el('mConnect').value=(m.connect||[]).join('\n');el('mDependencies').value=(m.dependencies||[]).join('\n');el('mSource').value=data.source||'';el('moduleEditorTitle').textContent='编辑模块：'+(m.displayName||m.name);el('moduleSaveButton').textContent='保存并自动备份旧版';el('moduleEditorMask').classList.add('show')}catch(e){setModuleMsg(e.message,true)}}
+function closeModuleEditor(){el('moduleEditorMask').classList.remove('show')}
+function maskClose(ev){if(ev.target===el('moduleEditorMask'))closeModuleEditor()}
+function bookmarkContainer(kind){return el(kind==='extension'?'extensionBookmarkRows':'deepSeekBookmarkRows')}
+function addBookmarkRow(kind,item={}){const box=bookmarkContainer(kind),row=document.createElement('div');row.className='row';row.style.marginBottom='8px';const name=document.createElement('input'),url=document.createElement('input'),remove=document.createElement('button');name.placeholder='书签名称';name.value=item.name||'';name.maxLength=80;name.className='bookmark-name';url.placeholder=kind==='extension'?'http://11.12.199.2:8080/DataV_Integration/hospitalc.html':'https://gemini.google.com/';url.value=item.url||'';url.className='grow bookmark-url';remove.type='button';remove.textContent='删除';remove.onclick=()=>row.remove();row.append(name,url,remove);box.appendChild(row);return row}
+function renderBookmarkRows(kind,items){bookmarkContainer(kind).replaceChildren();for(const item of items||[])addBookmarkRow(kind,item)}
+function collectBookmarkRows(kind){const label=kind==='extension'?'扩展网页':'DeepSeek 书签';return [...bookmarkContainer(kind).children].map(row=>{const name=row.querySelector('.bookmark-name').value.trim(),url=row.querySelector('.bookmark-url').value.trim();if(!name||!url)throw new Error(label+'的名称和网址均须填写');return {name,url}})}
+function splitList(value){return String(value||'').split(/[\n,，;；]+/).map(s=>s.trim()).filter((v,i,a)=>v&&a.indexOf(v)===i)}
+function editorBody(includeName){const body={displayName:el('mDisplayName').value.trim(),version:el('mVersion').value.trim(),file:el('mFile').value.trim(),source:el('mSource').value,enabled:el('mEnabled').checked,roles:splitList(el('mRoles').value),matches:splitList(el('mMatches').value),runAt:el('mRunAt').value,grants:splitList(el('mGrants').value),connect:splitList(el('mConnect').value),dependencies:splitList(el('mDependencies').value),priority:Number(el('mPriority').value||100),channel:el('mChannel').value.trim()||'stable',userControllable:el('mUserControllable').checked,defaultUserEnabled:el('mDefaultUserEnabled').checked};if(includeName)body.name=el('mName').value.trim();return body}
+async function saveModule(){try{setEditorMsg('正在保存…');const body=editorBody(editorMode==='new');if(!body.source)throw new Error('JavaScript 源码不能为空');let r;if(editorMode==='new'){r=await api('/api/admin/modules',{method:'POST',body:JSON.stringify(body)})}else{r=await api('/api/admin/modules/'+encodeURIComponent(editorModuleName),{method:'PUT',body:JSON.stringify(body)})}closeModuleEditor();setModuleMsg((editorMode==='new'?'已新增模块：':'已更新模块：')+(r.module.displayName||r.module.name)+(r.sessionsRevoked?'；已撤销 '+r.sessionsRevoked+' 个其它会话':''));await loadModulesAndBackups();await loadUsers()}catch(e){setEditorMsg(e.message,true)}}
+async function loadSourceFile(event){try{const file=event&&event.target&&event.target.files&&event.target.files[0];if(!file)return;if(file.size>8*1024*1024)throw new Error('脚本文件不能超过 8 MB');el('mSource').value=await file.text();if(editorMode==='new'&&!el('mFile').value.trim())el('mFile').value=(file.name||'').replace(/\.txt$/i,'.js');readMetadataFromSource();setEditorMsg('已读取本地脚本：'+file.name)}catch(e){setEditorMsg(e.message,true)}}
+function readMetadataFromSource(){const src=el('mSource').value;const block=(src.match(/\/\/\s*==UserScript==([\s\S]*?)\/\/\s*==\/UserScript==/)||[])[1]||'';if(!block){setEditorMsg('没有找到 ==UserScript== 元数据块。',true);return}const rows={match:[],grant:[],connect:[]};for(const line of block.split(/\r?\n/)){const m=line.match(/^\s*\/\/\s*@([\w-]+)\s+(.*?)\s*$/);if(!m)continue;const k=m[1].toLowerCase(),v=m[2].trim();if(k==='name')el('mDisplayName').value=v;else if(k==='version')el('mVersion').value=v;else if(k==='run-at'&&['document-start','document-end','document-idle'].includes(v))el('mRunAt').value=v;else if(k==='match')rows.match.push(v);else if(k==='grant'&&v.toLowerCase()!=='none')rows.grant.push(v);else if(k==='connect')rows.connect.push(v)}if(rows.match.length)el('mMatches').value=rows.match.join('\n');if(rows.grant.length)el('mGrants').value=rows.grant.join('\n');if(rows.connect.length)el('mConnect').value=rows.connect.join('\n');setEditorMsg('已从 Userscript 头读取基础信息。')}
+async function backupModule(name){try{const r=await api('/api/admin/modules/'+encodeURIComponent(name)+'/backup',{method:'POST'});setModuleMsg('已备份：'+name+' → '+r.backup.backupId);await loadBackups()}catch(e){setModuleMsg(e.message,true)}}
+async function deleteModule(name,displayName){if(!confirm('确定删除模块“'+displayName+'”？\n\n服务器会先自动备份源码和元数据；如仍有其它模块依赖它，删除会被阻止。'))return;try{const r=await api('/api/admin/modules/'+encodeURIComponent(name),{method:'DELETE'});setModuleMsg('已删除 '+name+'；自动备份：'+r.backup.backupId);await loadModulesAndBackups();await loadUsers()}catch(e){setModuleMsg(e.message,true)}}
+async function restoreBackup(id,name){if(!confirm('恢复备份“'+name+'”？\n同名模块存在时将覆盖当前版本，并先自动备份当前版本。'))return;try{const r=await api('/api/admin/modules/backups/'+encodeURIComponent(id)+'/restore',{method:'POST',body:JSON.stringify({overwrite:true})});setModuleMsg('已恢复：'+(r.module.displayName||r.module.name));await loadModulesAndBackups();await loadUsers()}catch(e){setModuleMsg(e.message,true)}}
+async function deleteBackup(id){if(!confirm('确定永久删除备份文件？\n'+id))return;try{await api('/api/admin/modules/backups/'+encodeURIComponent(id),{method:'DELETE'});setModuleMsg('已删除备份：'+id);await loadBackups()}catch(e){setModuleMsg(e.message,true)}}
+function formatBytes(n){n=Number(n)||0;if(n<1024)return n+' B';if(n<1024*1024)return (n/1024).toFixed(1)+' KB';return (n/1024/1024).toFixed(2)+' MB'}
+function formatTime(ts){if(!ts)return '—';const d=new Date(Number(ts)*1000);return d.toLocaleString('zh-CN',{hour12:false})}
+function reasonText(r){return {'manual':'手动备份','before-edit':'编辑前自动备份','before-delete':'删除前自动备份','before-restore':'恢复前自动备份','webdav-update':'WebDAV更新前自动备份'}[r]||r||'—'}
+function escapeHtml(s){return String(s==null?'':s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+if(el('vpnRoutingMode'))el('vpnRoutingMode').addEventListener('change',updateVpnRouteUi);
+if(el('vpnAccessMode'))el('vpnAccessMode').addEventListener('change',updateAccessModeUi);
+</script>
+</body>
+</html>

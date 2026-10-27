@@ -1,0 +1,21 @@
+OpenHisAssistant v0.4.0 validation summary
+
+PASS  server/app.py: python py_compile
+PASS  server/server_admin.py: python py_compile
+PASS  RuntimeBridge.js: node --check
+PASS  9 raw userscript modules: node --check
+PASS  9 modules after Userscript wrapper composition: node --check
+PASS  manifest hashes match actual UTF-8 module source
+PASS  test DB/bootstrap: server reports 0.4.0 and loads 9 modules
+PASS  staged default permission: only suite-manager + clinical-path enabled for fresh admin/doctor
+PASS  dependency test: disabling suite-manager removes dependent modules; re-enabling restores opted-in modules
+PASS  Runtime behavior mock: per-module isolation, host storage persistence message, server-managed DeepSeek sentinel, inpatient localStorage API-key compatibility
+PASS  C# source lexical balance check (braces/parens/strings/comments)
+
+NOT COMPILED IN SANDBOX:
+- WinForms/.NET Framework 4.6.2 client requires Visual Studio/MSBuild on Windows.
+- Final Release build must still be compiled and tested on the user's development machine.
+
+KNOWN FIRST-STAGE LIMITS:
+- outpatient stream:true is full SSE response + synthetic progress, not true token-by-token streaming yet.
+- record-print-bridge 8000 injection is guaranteed only when the page is hosted in the same WebView2 document chain; a window.open/new WebView2 path needs child-window runtime support in a later step.

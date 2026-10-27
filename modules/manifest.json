@@ -1,0 +1,393 @@
+{
+  "schemaVersion": 4,
+  "runtime": "userscript-compatibility-1.3",
+  "modules": [
+    {
+      "name": "suite-manager",
+      "displayName": "智慧医疗－七脚本隔离与悬浮框风格管理器",
+      "version": "3.7.3.5.32",
+      "file": "suite-manager.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*",
+        "http://11.12.199.3:8996/attend/attendingPhysician*",
+        "http://11.12.199.3:8996/attend/patientQuery*"
+      ],
+      "runAt": "document-start",
+      "grants": [
+        "unsafeWindow",
+        "GM_getValue",
+        "GM_setValue",
+        "GM_xmlhttpRequest"
+      ],
+      "connect": [
+        "11.12.199.3"
+      ],
+      "dependencies": [],
+      "priority": 10,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:efbcecf41816b475a1631e6f658cd5637fcc3b7e2a69e642ab42357caf631d55",
+      "defaultUserEnabled": true
+    },
+    {
+      "name": "patient-info",
+      "displayName": "智慧医疗病案首页－自动填写患者信息",
+      "version": "12.34.124.23",
+      "file": "patient-info.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*",
+        "*://11.12.199.5:8003/*",
+        "*://11.12.199.244:8000/*",
+        "*://11.12.199.5:8000/*",
+        "https://lis.seamaty.net/*",
+        "http://11.12.199.3:8996/attend/attendingPhysician*",
+        "http://11.12.199.3:8996/attend/patientQuery*"
+      ],
+      "runAt": "document-start",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "GM_deleteValue",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "api.deepseek.com",
+        "open.bigmodel.cn",
+        "api.openai.com",
+        "11.12.199.244",
+        "11.12.199.5",
+        "11.12.199.250",
+        "11.12.199.2",
+        "11.12.199.3",
+        "lis.seamaty.net"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 100,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:dea91678d8977f7cb08b7c872a04a25d1865427d0849d9ff688509a686c83d8b",
+      "defaultUserEnabled": false
+    },
+    {
+      "name": "inpatient-info",
+      "displayName": "智慧医疗病案首页－自动填写住院信息",
+      "version": "2.41.85",
+      "file": "inpatient-info.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*",
+        "*://11.12.199.5:8003/*",
+        "*://11.12.199.244:8000/*",
+        "*://11.12.199.5:8000/*",
+        "https://lis.seamaty.net/*"
+      ],
+      "runAt": "document-start",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "GM_deleteValue",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "api.deepseek.com",
+        "open.bigmodel.cn",
+        "api.openai.com",
+        "11.12.199.244",
+        "11.12.199.5",
+        "11.12.199.2",
+        "lis.seamaty.net"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 110,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:df38f26d2e7f77fc5115d86176940b31c98f4e88bcbc02d3dcea2bcd5c2a336c",
+      "defaultUserEnabled": false
+    },
+    {
+      "name": "diagnosis-auto-fill",
+      "displayName": "智慧医疗病案首页－诊断列表AI辅助填写",
+      "version": "4.0.8",
+      "file": "diagnosis-auto-fill.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*"
+      ],
+      "runAt": "document-idle",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "api.deepseek.com",
+        "open.bigmodel.cn",
+        "api.openai.com"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 120,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:67de6d5141d70dfeb7e206a7bce5f9050612f229110d0a346b7be3a622a3d837",
+      "defaultUserEnabled": false
+    },
+    {
+      "name": "herbal-ai",
+      "displayName": "智慧医疗－中草药AI辅助批量录入",
+      "version": "1.18.19",
+      "file": "herbal-ai.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*"
+      ],
+      "runAt": "document-idle",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "api.deepseek.com",
+        "open.bigmodel.cn",
+        "api.openai.com"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 130,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:abe317e4bcbb1df23addd55ccd21859f0684ab8ac26d574afe60012d682e3464",
+      "defaultUserEnabled": false
+    },
+    {
+      "name": "drug-ai",
+      "displayName": "智慧医疗－药品AI辅助自动录入",
+      "version": "1.28.26",
+      "file": "drug-ai.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*"
+      ],
+      "runAt": "document-idle",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "api.deepseek.com",
+        "open.bigmodel.cn",
+        "api.openai.com"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 140,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:2a04b71549fa39a5c61c591e0354a5a75552b650ddd0b04025f7a4b7a51e464b",
+      "defaultUserEnabled": false
+    },
+    {
+      "name": "clinical-path",
+      "displayName": "智慧医疗－临床路径组套跨标签页自动录入",
+      "version": "1.48.33",
+      "file": "clinical-path.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*"
+      ],
+      "runAt": "document-idle",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "api.deepseek.com",
+        "open.bigmodel.cn",
+        "api.openai.com"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 150,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:1ac62532550a5422d01f98cd3876d9939ed01d53964245ea9e78e2d70a9391f8",
+      "defaultUserEnabled": true
+    },
+    {
+      "name": "outpatient-assistant",
+      "displayName": "智慧医疗－门诊助手",
+      "version": "1.7.3.16",
+      "file": "outpatient-assistant.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "http://11.12.199.244:8003/*"
+      ],
+      "runAt": "document-idle",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "GM_addStyle",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "api.deepseek.com",
+        "open.bigmodel.cn",
+        "api.openai.com"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 160,
+      "channel": "stable",
+      "userControllable": true,
+      "hash": "sha256:c8784fdd17bf0b514dc105678b64e8e70b5c9dd2760f38367ea5dd912eef5534",
+      "defaultUserEnabled": false
+    },
+    {
+      "name": "webdav-helper",
+      "displayName": "智慧医疗－WebDAV跨域传输助手",
+      "version": "1.0.1",
+      "file": "webdav-helper.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*"
+      ],
+      "runAt": "document-start",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "*"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 100,
+      "channel": "stable",
+      "userControllable": true,
+      "defaultUserEnabled": false,
+      "hash": "sha256:b6da6c5b1e7ffc210ff2743ce0ec41f6178ca76f603233277860d6db5f1b0f40"
+    },
+    {
+      "name": "drg-helper",
+      "displayName": "住院管理系统 - 医师、DRG、费用助手（含报红筛选）",
+      "version": "2.5.16",
+      "file": "drg-helper.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "http://11.12.199.3:8996/attend/attendingPhysician*",
+        "http://11.12.199.3:8996/attend/patientQuery*",
+        "http://11.12.199.244:8003/*"
+      ],
+      "runAt": "document-start",
+      "grants": [
+        "unsafeWindow",
+        "GM_getValue",
+        "GM_setValue"
+      ],
+      "connect": [],
+      "dependencies": [],
+      "priority": 100,
+      "channel": "stable",
+      "userControllable": true,
+      "defaultUserEnabled": false,
+      "hash": "sha256:ef66e125e3025c6e6db9b60da210ae02c3bb494cff81a79a1dfd07f512414a6f"
+    },
+    {
+      "name": "inpatient-summary",
+      "displayName": "住院患者一览汇总插件",
+      "version": "1.3.28.3",
+      "file": "inpatient-summary.js",
+      "enabled": true,
+      "roles": [
+        "admin",
+        "doctor"
+      ],
+      "matches": [
+        "*://11.12.199.244:8003/*",
+        "http://11.12.199.3:8996/attend/attendingPhysician*",
+        "http://11.12.199.3:8996/attend/patientQuery*"
+      ],
+      "runAt": "document-start",
+      "grants": [
+        "GM_xmlhttpRequest",
+        "GM_getValue",
+        "GM_setValue",
+        "unsafeWindow"
+      ],
+      "connect": [
+        "11.12.199.244",
+        "11.12.199.3"
+      ],
+      "dependencies": [
+        "suite-manager"
+      ],
+      "priority": 100,
+      "channel": "stable",
+      "userControllable": true,
+      "defaultUserEnabled": false,
+      "hash": "sha256:f870fc5a202077794d940ec857e098d047f9c7aaf10b4f188d20e22d439f55da"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "bind_host": "0.0.0.0",
+  "bind_port": 8088,
+  "session_hours": 8,
+  "server_secret": "CHANGE_THIS_TO_A_LONG_RANDOM_SECRET",
+  "bootstrap_admin_username": "admin",
+  "bootstrap_admin_password": "ChangeMe_Immediately_123!",
+  "deepseek_api_key": "sk-REPLACE_ME",
+  "deepseek_allowed_hosts": [
+    "api.deepseek.com"
+  ],
+  "clash_http_proxy": "http://127.0.0.1:7890",
+  "module_manifest": "modules/manifest.json",
+  "ssl_certfile": "",
+  "ssl_keyfile": "",
+  "deepseek_api_base": "https://api.deepseek.com",
+  "deepseek_default_model": "deepseek-chat",
+  "deepseek_allowed_models": [
+    "deepseek-chat",
+    "deepseek-reasoner"
+  ],
+  "deepseek_vision_api_base": "https://api.deepseek.com",
+  "deepseek_vision_model": "deepseek-v4-flash-vision-exp"
+}
